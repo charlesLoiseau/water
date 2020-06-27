@@ -412,7 +412,7 @@ window.Apex = {
   }, 6000);
 
   $(document).ready(function(){
-    $("select").change(function(data){
+    $("select").change(function(){
       SENSOR = $(this).children("option:selected").val();
       chartLineHour.updateSeries([{
         data: getLastHourData()

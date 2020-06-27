@@ -13,7 +13,6 @@ const char* host = "";
 const int port = ;
 
 void setup() {
-  // put your setup code here, to run once:
   Serial.begin(115200);
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) {  // Wait for the WiFI connection completion
@@ -27,7 +26,6 @@ void setup() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
   int value = analogRead(sensor);
   avarageOverMinute(value);
 }

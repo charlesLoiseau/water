@@ -16,7 +16,7 @@ exports.getLastWeekMesurement = async (req, res, next) => {
 }
 
 exports.setMeasurement = async (req, res, next) => {
-  const result = await measurementService.setMeasurement(
+  await measurementService.setMeasurement(
     req.body.capacity,
     req.params.sensorName
   );

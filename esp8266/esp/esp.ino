@@ -34,6 +34,7 @@ void avarageOverMinute(int current) {
   lastMinVal[lastIndex] = current;
   lastIndex++;
   int total = 0;
+  // a optimiser pour integrer le deep sleep
   if (lastIndex >= 60) {
     for (int i = 0; i < 60; i++) {
       total = total + lastMinVal[i];

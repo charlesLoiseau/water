@@ -30,7 +30,7 @@ exports.getLastDayMeasurements = async (sensorName) => {
       $gte: new Date(new Date(today.getTime() - (1000*60*60*24)))
     },
     sensorName: sensorName
-   })
+   }).sort({timestamp: 'desc'})
   return await q.exec();
 };
 
@@ -46,6 +46,16 @@ exports.getLastWeekMeasurements = async (sensorName) => {
    })
   return await q.exec();
 };
+
+exports.getQueryMeasurements = async (query, sensorName) => {
+  var q = Measurement.find({ 
+    timestamp: query,
+    sensorName: sensorName
+   })
+  return await q.exec();
+};
+
+
 
 exports.setMeasurement = async (capacity, sensorName) => {
   const minute = 1000 * 60;

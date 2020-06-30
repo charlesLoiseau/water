@@ -52,7 +52,7 @@ window.Apex = {
   function getLastHourData() {
     let series = []
     $.ajax({
-      url: `http://raspberrypi:3000/measurement/${SENSOR}/lastHour`,
+      url: `http://localhost:3000/measurement/${SENSOR}/lastHour`,
       type: 'get',
       dataType: 'json',
       async: false,
@@ -68,7 +68,7 @@ window.Apex = {
   function getLastDayData() {
     let series = []
     $.ajax({
-      url: `http://raspberrypi:3000/measurement/${SENSOR}/lastDay`,
+      url: `http://localhost:3000/measurement/${SENSOR}/lastDay`,
       type: 'get',
       dataType: 'json',
       async: false,
@@ -84,7 +84,7 @@ window.Apex = {
   function getLastWeekData() {
     let series = []
     $.ajax({
-      url: `http://raspberrypi:3000/measurement/${SENSOR}/lastWeek`,
+      url: `http://localhost:3000/measurement/${SENSOR}/lastWeek`,
       type: 'get',
       dataType: 'json',
       async: false,
@@ -249,9 +249,9 @@ window.Apex = {
       }
     },
     markers: {
-      size: 0,
+      size: 3,
       hover: {
-        size: 0
+        size: 5
       }
     },
     series: [{
@@ -341,9 +341,9 @@ window.Apex = {
       }
     },
     markers: {
-      size: 0,
+      size: 3,
       hover: {
-        size: 0
+        size: 5
       }
     },
     series: [{
@@ -400,16 +400,20 @@ window.Apex = {
     chartLineHour.updateSeries([{
       data: getLastHourData()
     }])
+  
+  }, 6000);
+
+  window.setInterval(function () {
 
     chartLineDay.updateSeries([{
       data: getLastDayData()
     }])
-
+  
     chartLineWeek.updateSeries([{
       data: getLastWeekData()
     }])
   
-  }, 6000);
+  }, 180000);
 
   $(document).ready(function(){
     $("select").change(function(){

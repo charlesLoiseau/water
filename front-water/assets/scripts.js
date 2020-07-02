@@ -2,12 +2,10 @@ var SENSOR = "Sensor-1"
 
 window.Apex = {
     chart: {
-      foreColor: '#fff',
       toolbar: {
         show: false
       },
     },
-    colors: ['#FCCF31', '#17ead9', '#f02fc2'],
     stroke: {
       width: 3
     },
@@ -15,24 +13,29 @@ window.Apex = {
       enabled: false
     },
     grid: {
-      borderColor: "#40475D",
+      borderColor: "#8C8E8C",
     },
     xaxis: {
+      style: {
+        colors: ['#8C8E8C'],
+        
+    },
       axisTicks: {
-        color: '#333'
+        color: '#8C8E8C'
       },
       axisBorder: {
-        color: "#333"
+        color: "#8C8E8C"
+      },
+      labels: {
+        show: true,
+        style: {
+          color: '#8C8E8C'
+        },
       }
     },
-    fill: {
-      type: 'gradient',
-      gradient: {
-        gradientToColors: ['#F55555', '#6078ea', '#6094ea']
-      },
-    },
+    colors: ["#77717E"],
     tooltip: {
-      theme: 'dark',
+      theme: 'light',
       x: {
         formatter: function (val) {
           return moment(new Date(val)).format("HH:mm:ss")
@@ -40,8 +43,9 @@ window.Apex = {
       }
     },
     yaxis: {
-      decimalsInFloat: 2,
-      opposite: true,
+      decimalsInFloat: 0,
+      max: 800,
+      min: 0,
       labels: {
         offsetX: -10
       }
@@ -52,7 +56,7 @@ window.Apex = {
   function getLastHourData() {
     let series = []
     $.ajax({
-      url: `http://localhost:3000/measurement/${SENSOR}/lastHour`,
+      url: `http://192.168.1.25:3000/measurement/${SENSOR}/lastHour`,
       type: 'get',
       dataType: 'json',
       async: false,
@@ -68,7 +72,7 @@ window.Apex = {
   function getLastDayData() {
     let series = []
     $.ajax({
-      url: `http://localhost:3000/measurement/${SENSOR}/lastDay`,
+      url: `http://192.168.1.25:3000/measurement/${SENSOR}/lastDay`,
       type: 'get',
       dataType: 'json',
       async: false,
@@ -84,7 +88,7 @@ window.Apex = {
   function getLastWeekData() {
     let series = []
     $.ajax({
-      url: `http://localhost:3000/measurement/${SENSOR}/lastWeek`,
+      url: `http://192.168.1.25:3000/measurement/${SENSOR}/lastWeek`,
       type: 'get',
       dataType: 'json',
       async: false,
@@ -106,23 +110,10 @@ window.Apex = {
       animations: {
         enabled: true,
         easing: 'linear',
-        dynamicAnimation: {
-          speed: 1000
-        }
-      },
-      dropShadow: {
-        enabled: true,
-        opacity: 0.3,
-        blur: 5,
-        left: -7,
-        top: 22
       },
       events: {
         animationEnd: function (chartCtx, opts) {
           const newData1 = chartCtx.w.config.series[0].data.slice()
-          newData1.shift()
-          
-  
           // check animation end event for just 1 series to avoid multiple updates
           if (opts.el.node.getAttribute('index') === '0') {
             window.setTimeout(function () {
@@ -131,7 +122,7 @@ window.Apex = {
                   data: newData1
                 }],
               }, false, false)
-            }, 300)
+            }, 6000)
           }
   
         }
@@ -147,7 +138,7 @@ window.Apex = {
       enabled: false
     },
     stroke: {
-      curve: 'straight',
+      curve: 'smooth',
       width: 5,
     },
     grid: {
@@ -174,7 +165,8 @@ window.Apex = {
       text: 'Heure',
       align: 'left',
       style: {
-        fontSize: '12px'
+        fontSize: '12px',
+        color: "#8C8E8C"
       }
     },
     legend: {
@@ -202,19 +194,9 @@ window.Apex = {
           speed: 1000
         }
       },
-      dropShadow: {
-        enabled: true,
-        opacity: 0.3,
-        blur: 5,
-        left: -7,
-        top: 22
-      },
       events: {
         animationEnd: function (chartCtx, opts) {
           const newData1 = chartCtx.w.config.series[0].data.slice()
-          newData1.shift()
-          
-  
           // check animation end event for just 1 series to avoid multiple updates
           if (opts.el.node.getAttribute('index') === '0') {
             window.setTimeout(function () {
@@ -223,7 +205,7 @@ window.Apex = {
                   data: newData1
                 }],
               }, false, false)
-            }, 300)
+            }, 6000)
           }
   
         }
@@ -239,7 +221,7 @@ window.Apex = {
       enabled: false
     },
     stroke: {
-      curve: 'straight',
+      curve: 'smooth',
       width: 5,
     },
     grid: {
@@ -249,9 +231,9 @@ window.Apex = {
       }
     },
     markers: {
-      size: 3,
+      size: 0,
       hover: {
-        size: 5
+        size: 0
       }
     },
     series: [{
@@ -266,7 +248,8 @@ window.Apex = {
       text: 'Jour',
       align: 'left',
       style: {
-        fontSize: '12px'
+        fontSize: '12px',
+        color: "#8C8E8C"
       }
     },
     legend: {
@@ -294,20 +277,9 @@ window.Apex = {
           speed: 1000
         }
       },
-      dropShadow: {
-        enabled: true,
-        opacity: 0.3,
-        blur: 5,
-        left: -7,
-        top: 22
-      },
       events: {
         animationEnd: function (chartCtx, opts) {
           const newData1 = chartCtx.w.config.series[0].data.slice()
-          newData1.shift()
-          
-  
-          // check animation end event for just 1 series to avoid multiple updates
           if (opts.el.node.getAttribute('index') === '0') {
             window.setTimeout(function () {
               chartCtx.updateOptions({
@@ -315,7 +287,7 @@ window.Apex = {
                   data: newData1
                 }],
               }, false, false)
-            }, 300)
+            }, 6000)
           }
   
         }
@@ -331,7 +303,7 @@ window.Apex = {
       enabled: false
     },
     stroke: {
-      curve: 'straight',
+      curve: 'smooth',
       width: 5,
     },
     grid: {
@@ -341,9 +313,9 @@ window.Apex = {
       }
     },
     markers: {
-      size: 3,
+      size: 0,
       hover: {
-        size: 5
+        size: 0
       }
     },
     series: [{
@@ -360,7 +332,8 @@ window.Apex = {
       text: 'Semaine',
       align: 'left',
       style: {
-        fontSize: '12px'
+        fontSize: '12px',
+        color: "#8C8E8C"
       }
     },
     legend: {

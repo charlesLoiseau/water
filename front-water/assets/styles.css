@@ -1,16 +1,40 @@
 
+@font-face {
+  font-family: Quicksand;
+  src: url(./fonts/Quicksand-Regular.ttf);
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Quicksand;
+  src: url(./fonts/Quicksand-SemiBold.ttf);
+  font-weight: bold;
+}
+
 body {
     background: #FFF0F0;
     color: #777;
-    font-family: Montserrat, Arial, sans-serif;
+    font-family: Quicksand, Arial, sans-serif;
 }
 
-.cac {
-  position: absolute;
-  height: 250px;
-  right: 90px;
-  top: 10px;
+@media (min-width: 1750px) { 
+  .cac {
+    position: absolute;
+    height: 250px;
+    right: 4%;
+    top: 10px;
+  }
 }
+
+@media (max-width: 1750px) { 
+  .cac {
+    display: block;
+    height: 250px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
 
 
 .content-area {

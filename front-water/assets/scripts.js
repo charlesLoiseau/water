@@ -107,6 +107,7 @@ window.Apex = {
       height: 350,
       type: 'line',
       stacked: true,
+      fontFamily: 'Quicksand, Arial, sans-serif',
       animations: {
         enabled: true,
         easing: 'linear',
@@ -187,6 +188,7 @@ window.Apex = {
       height: 350,
       type: 'line',
       stacked: true,
+      fontFamily: 'Quicksand, Arial, sans-serif',
       animations: {
         enabled: true,
         easing: 'linear',
@@ -270,6 +272,7 @@ window.Apex = {
       height: 350,
       type: 'line',
       stacked: true,
+      fontFamily: 'Quicksand, Arial, sans-serif',
       animations: {
         enabled: true,
         easing: 'linear',
@@ -325,7 +328,7 @@ window.Apex = {
     xaxis: {
       type: 'datetime',
       labels: {
-        format: 'dd/MM-HH',
+        format: 'dd/MM',
       }
     },
     title: {

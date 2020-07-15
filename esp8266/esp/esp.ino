@@ -2,15 +2,13 @@
 #include <ESP8266HTTPClient.h>
 
 int sensor = A0;
-int lastMinVal[60];
-int lastIndex = 0;
-int average = 0;
 
+#define durationSleep 60
 const String ssid = "";
 const String password = "";
 const String sensorName = "";
 const char* host = "";
-const int port = ;
+const int port = 3000;
 
 void setup() {
   Serial.begin(115200);
@@ -19,31 +17,15 @@ void setup() {
     delay(500);
     Serial.println("Waiting for connection");
   }
-  for (int i = 0; i < 60; i++) {
-    lastMinVal[i] = 0;
-  }
   Serial.println("Connected");
 }
 
 void loop() {
-  int value = analogRead(sensor);
-  avarageOverMinute(value);
+  postData(analogRead(sensor));
+  ESP.deepSleep(durationSleep * 1000000);
 }
 
-void avarageOverMinute(int current) {
-  lastMinVal[lastIndex] = current;
-  lastIndex++;
-  int total = 0;
-  // a optimiser pour integrer le deep sleep
-  if (lastIndex >= 60) {
-    for (int i = 0; i < 60; i++) {
-      total = total + lastMinVal[i];
-      lastMinVal[i] = 0;
-    }
-    lastIndex = 0;
-  }
-  delay(1000);
-}
+
 
 void postData(int data) {
   if (WiFi.status() == WL_CONNECTED) {

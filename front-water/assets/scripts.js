@@ -409,7 +409,7 @@ window.Apex = {
       async: false,
       success: function(data) {
         data.forEach(e => {
-          $("select").append(new Option(e, e));
+          $("select").append(new Option(e.sensorName, e.sensorName));
         })
       } 
    });

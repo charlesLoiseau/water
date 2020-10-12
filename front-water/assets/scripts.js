@@ -1,4 +1,4 @@
-var SENSOR = "Sensor-1"
+var SENSOR = ""
 
 window.Apex = {
     chart: {
@@ -55,6 +55,9 @@ window.Apex = {
 
   function getLastHourData() {
     let series = []
+    if (SENSOR === "") {
+      return;
+    }
     $.ajax({
       url: `http://192.168.1.55:3000/measurement/${SENSOR}/lastHour`,
       type: 'get',
@@ -71,6 +74,9 @@ window.Apex = {
 
   function getLastDayData() {
     let series = []
+    if (SENSOR === "") {
+      return;
+    }
     $.ajax({
       url: `http://192.168.1.55:3000/measurement/${SENSOR}/lastDay`,
       type: 'get',
@@ -87,6 +93,9 @@ window.Apex = {
 
   function getLastWeekData() {
     let series = []
+    if (SENSOR === "") {
+      return;
+    }
     $.ajax({
       url: `http://192.168.1.55:3000/measurement/${SENSOR}/lastWeek`,
       type: 'get',
@@ -392,6 +401,20 @@ window.Apex = {
   }, 180000);
 
   $(document).ready(function(){
+
+    $.ajax({
+      url: `http://192.168.1.55:3000/sensor`,
+      type: 'get',
+      dataType: 'json',
+      async: false,
+      success: function(data) {
+        data.forEach(e => {
+          $("select").append(new Option(e, e));
+        })
+      } 
+   });
+    
+
     $("select").change(function(){
       SENSOR = $(this).children("option:selected").val();
       chartLineHour.updateSeries([{

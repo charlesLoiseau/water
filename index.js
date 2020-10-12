@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 mongoose.Promise = global.Promise;
-const uri = "mongodb://192.168.1.25:27017";
+const uri = "mongodb://192.168.1.55:27017";
 mongoose
   .connect(uri, {
     useNewUrlParser: true,

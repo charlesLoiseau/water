@@ -56,7 +56,7 @@ window.Apex = {
   function getLastHourData() {
     let series = []
     $.ajax({
-      url: `http://192.168.1.25:3000/measurement/${SENSOR}/lastHour`,
+      url: `http://192.168.1.55:3000/measurement/${SENSOR}/lastHour`,
       type: 'get',
       dataType: 'json',
       async: false,
@@ -72,7 +72,7 @@ window.Apex = {
   function getLastDayData() {
     let series = []
     $.ajax({
-      url: `http://192.168.1.25:3000/measurement/${SENSOR}/lastDay`,
+      url: `http://192.168.1.55:3000/measurement/${SENSOR}/lastDay`,
       type: 'get',
       dataType: 'json',
       async: false,
@@ -88,7 +88,7 @@ window.Apex = {
   function getLastWeekData() {
     let series = []
     $.ajax({
-      url: `http://192.168.1.25:3000/measurement/${SENSOR}/lastWeek`,
+      url: `http://192.168.1.55:3000/measurement/${SENSOR}/lastWeek`,
       type: 'get',
       dataType: 'json',
       async: false,

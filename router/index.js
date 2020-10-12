@@ -7,4 +7,8 @@ router.get("/measurement/:sensorName/lastHour", MeasurementController.getLastHou
 router.get("/measurement/:sensorName/lastDay", MeasurementController.getLastDayMesurement);
 router.get("/measurement/:sensorName/lastWeek", MeasurementController.getLastWeekMesurement);
 
+const SensorController = require("../controllers/sensor-controller");
+router.get("/sensor", SensorController.getSensors);
+router.post("/sensor", SensorController.setSensor);
+
 module.exports = router;

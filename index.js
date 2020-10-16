@@ -21,6 +21,9 @@ mongoose
   })
   .then(() => {
     console.log("Connection to database!");
+  })
+  .catch((e) => {
+    console.log(e)
   });
 
 

@@ -1,7 +1,9 @@
 const measurementService = require("../services/measurement-service");
+const sensorService = require("../services/sensor-service")
 
 exports.getLastHourMesurement = async (req, res, next) => {
-
+  sensorId = sensorService.getSensorId(req.params.sensorName)
+  console.log(sensorId)
   res.json(await measurementService.getLastHourMeasurements(req.params.sensorName))
 }
 

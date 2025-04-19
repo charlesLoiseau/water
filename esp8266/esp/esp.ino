@@ -3,55 +3,74 @@
 
 int sensor = A0;
 
-const String ssid = "";
-const String password = "";
-const char* host = "";
-const int port = 3000;
+const String ssid = "";       // WiFi SSID
+const String password = "";   // WiFi Password
+const char* host = "";        // Server Host
+const int port = 3000;        // Server Port
 
-
-void postData(WiFiClient client, int data) {
+/**
+ * Send data to the server.
+ * @param data - The sensor data to send.
+ */
+void postData(int data) {
   if (WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
+    String url = "http://" + (String)host + ":" + (String)port + "/measurement/" + (String)ESP.getChipId();
+    String payload = "{\"capacity\": \"" + (String)data + "\"}";
 
-    http.begin(client, "http://" + (String)host + ":" + (String)port + "/measurement/" + (String)ESP.getChipId());
+    http.begin(url);
     http.addHeader("Content-Type", "application/json");
-    http.POST("{\"capacity\": \"" + (String)data + "\"}");
+    int httpCode = http.POST(payload);
     http.end();
-    
-    Serial.println("sended {\"capacity\": \"" + (String)data + "\"} To " + "http://" + (String)host + ":" + (String)port + "/measurement/" + (String)ESP.getChipId());
+
+    Serial.printf("Sent: %s to %s, Response Code: %d\n", payload.c_str(), url.c_str(), httpCode);
   } else {
-    Serial.println("Error in WiFi connection");
+    Serial.println("Error: WiFi not connected");
   }
 }
 
+/**
+ * Register the sensor with the server.
+ */
+void registerSensor() {
+  if (WiFi.status() == WL_CONNECTED) {
+    HTTPClient http;
+    String url = "http://" + (String)host + ":" + (String)port + "/sensor";
+    String payload = "{\"sensorName\": \"" + (String)ESP.getChipId() + "\"}";
+
+    http.begin(url);
+    http.addHeader("Content-Type", "application/json");
+    int httpCode = http.POST(payload);
+    http.end();
+
+    Serial.printf("Sensor Registration: %s, Response Code: %d\n", payload.c_str(), httpCode);
+  } else {
+    Serial.println("Error: WiFi not connected");
+  }
+}
 
 void setup() {
   Serial.begin(115200);
   delay(1000);
-    WiFiClient client;
+
+  // Connect to WiFi
   WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) {  // Wait for the WiFI connection completion
+  while (WiFi.status() != WL_CONNECTED) {
     delay(500);
-    Serial.println("Waiting for connection");
+    Serial.println("Connecting to WiFi...");
   }
-  Serial.println("Connected");
-  Serial.println("IP address: ");
-  Serial.println(WiFi.localIP());
-  Serial.printf("Asking for sensor creation for: "+ ESP.getChipId());
-  if (WiFi.status() == WL_CONNECTED) {
-    WiFiClient client;
-    HTTPClient http;
-    http.begin(client, "http://" + (String)host + ":" + (String)port + "/sensor");
-    http.addHeader("Content-Type", "application/json");
-    Serial.println(http.POST("{\"sensorName\": \"" + (String)ESP.getChipId() + "\"}"));
-    http.end();
-  }
-  postData(client, analogRead(sensor));
+  Serial.println("WiFi Connected");
+  Serial.printf("IP Address: %s\n", WiFi.localIP().toString().c_str());
+
+  // Register the sensor and send data
+  registerSensor();
+  postData(analogRead(sensor));
+
+  // Disconnect WiFi and enter deep sleep
   WiFi.disconnect();
-  ESP.deepSleep(30e6); 
+  ESP.deepSleep(30e6); // Sleep for 30 seconds
 }
 
 void loop() {
-
-  
+  // Empty loop since the ESP8266 will be in deep sleep
 }

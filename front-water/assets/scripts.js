@@ -59,7 +59,7 @@ window.Apex = {
       return;
     }
     $.ajax({
-      url: `http://192.168.1.55:3000/measurement/${SENSOR}/lastHour`,
+      url: `http://localhost:3000/measurement/${SENSOR}/lastHour`,
       type: 'get',
       dataType: 'json',
       async: false,
@@ -78,7 +78,7 @@ window.Apex = {
       return;
     }
     $.ajax({
-      url: `http://192.168.1.55:3000/measurement/${SENSOR}/lastDay`,
+      url: `http://localhost:3000/measurement/${SENSOR}/lastDay`,
       type: 'get',
       dataType: 'json',
       async: false,
@@ -97,7 +97,7 @@ window.Apex = {
       return;
     }
     $.ajax({
-      url: `http://192.168.1.55:3000/measurement/${SENSOR}/lastWeek`,
+      url: `http://localhost:3000/measurement/${SENSOR}/lastWeek`,
       type: 'get',
       dataType: 'json',
       async: false,
@@ -403,7 +403,7 @@ window.Apex = {
   $(document).ready(function(){
 
     $.ajax({
-      url: `http://192.168.1.55:3000/sensor`,
+      url: `http://localhost:3000/sensor`,
       type: 'get',
       dataType: 'json',
       async: false,

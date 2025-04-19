@@ -2,12 +2,20 @@ const measurementService = require("../services/measurement-service");
 const sensorService = require("../services/sensor-service")
 
 exports.getLastHourMesurement = async (req, res, next) => {
+  if (req.params.sensorName === undefined || req.params.sensorName === null) {
+    res.status(400).send({error: "sensorName required"})
+    return;
+  }
   sensorId = sensorService.getSensorId(req.params.sensorName)
   console.log(sensorId)
   res.json(await measurementService.getLastHourMeasurements(req.params.sensorName))
 }
 
 exports.getLastDayMesurement = async (req, res, next) => {
+  if (req.params.sensorName === undefined || req.params.sensorName === null) {
+    res.status(400).send({error: "sensorName required"})
+    return;
+  }
   let day = [];
   let i = 0;
   let total = 0;
@@ -36,6 +44,10 @@ exports.getLastDayMesurement = async (req, res, next) => {
 }
 
 exports.getLastWeekMesurement = async (req, res, next) => {
+  if (req.params.sensorName === undefined || req.params.sensorName === null) {
+    res.status(400).send({error: "sensorName required"})
+    return;
+  }
   let week = [];
   let i = 0;
   let total = 0;

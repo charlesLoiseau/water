@@ -4,23 +4,25 @@ exports.getSensors = async () => {
     return await Sensor.find();
 };
 
-exports.getSensorId = async(SensorName) => {
+exports.getSensorId = async(sensorName) => {
     if (sensorName === undefined ||  sensorName === null) {
         return -1
     }
-    res = await Sensor.findOne({'sensorName': sensorName}, (err, res) =>  {
-        return res;
-    })
-    return res._id
+    try {
+      const res = await Sensor.findOne({'sensorName': sensorName});
+      return res._id;
+    } catch (error) {
+      console.log(error);
+      return -1
+    }
+    
 }
 
 exports.setSensor = async (sensorName) => {
     if (sensorName === undefined ||  sensorName === null) {
         return -1
     }
-    res = await Sensor.findOne({'sensorName': sensorName}, (err, res) =>  {
-        return res;
-    })
+    const res = await Sensor.findOne({'sensorName': sensorName});
     if (res !== null && res.sensorName === sensorName) {
         return -2
     }

@@ -51,6 +51,7 @@ void registerSensor() {
 
 void setup() {
   Serial.begin(115200);
+  Serial.setTimeout(2000)
   delay(1000);
 
   // Connect to WiFi
